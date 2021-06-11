@@ -1,0 +1,33 @@
+@import './mixins.scss';
+
+// 字体相关
+$fonts:0,16,18,20,22,24,26,28,30,32,34,36,38;
+@each $size in $fonts {
+    .font#{$size}{
+        font-size: #{$size}px;
+    }
+}
+
+// 颜色相关
+$colors: 2d8cf0,5cadff,2b85e4,2db7f5,19be6b,ff9900,ed4014,17233d,515a6e,808695,c5c8ce,dcdee2,e8eaec,f8f8f9;
+@each $color in $colors {
+    .color-#{$color}{
+        color: #{'#'}+$color;
+    }
+}
+
+/*
+* 清除浮动
+*/
+.clearfix{
+    @include clearfix();
+}
+
+/*
+* 内容不可选中
+*/
+.user-select {
+    -moz-user-select:none;
+    -webkit-user-select: none;       
+    -ms-user-select: none;  
+}

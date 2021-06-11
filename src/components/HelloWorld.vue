@@ -108,6 +108,12 @@ export default {
   props: {
     msg: String,
   },
+  created() {
+    console.log("子---created");
+  },
+  mounted() {
+    console.log("子---mounted");
+  },
 };
 </script>
 
