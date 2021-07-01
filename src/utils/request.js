@@ -4,6 +4,7 @@ import { getRefreshToken } from "api/user";
 // 从localStorage中获取token
 function getLocalToken() {
   const token = window.localStorage.getItem("token");
+  console.log("token---", token);
   return token;
 }
 
@@ -16,10 +17,6 @@ function refreshToken() {
 const instance = axios.create({
   baseURL: "/api",
   timeout: 300000,
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-    token: getLocalToken(), // headers塞token
-  },
 });
 
 // 给实例添加一个setToken方法，用于登录后将最新token动态添加到header，同时将token保存在localStorage中
@@ -45,6 +42,8 @@ instance.interceptors.request.use((config) => {
   if (!pendingMap.has(config.url)) {
     pendingMap.set(config.url, config);
   }
+  config.headers["token"] = getLocalToken();
+  console.log(config.headers);
   return config;
 });
 
@@ -66,6 +65,7 @@ instance.interceptors.response.use(
           })
           .catch((err) => {
             console.error("refreshtoken error =>", err);
+            console.log("去重新登录!");
             window.location.href = "/";
           })
           .finally(() => {
